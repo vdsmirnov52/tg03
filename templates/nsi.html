@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if not session.logged_in %}
+	<h2>Необходима реристрация</h2>
+{% else %}
+	<form name='myForm' action="{{ url_for('set_entry') }}" method=post class=add-entry>
+	<div class="menu_nav">
+		<div id='head_CC' class="col col-2">
+		<span class='tit'> НСИ {{ config['TITLE'] }} </span>
+		</div>
+		<div id='head_CC' class="col col-2">	<span class='tit'> T:{{ g.sdate }} S: {{ session.nsi_opts }}</span>
+		</div>
+		<div id='head_CC' class="col col-2">
+			<select name='nsi_opts' class='ssel'  onchange="document.myForm.submit();"  >
+			<option value=''> </option>
+			<option value='person' {% if session.nsi_opts == 'person' %} selected {% endif %}> Сотрудники СМП </option>
+			<option value='autos' {% if session.nsi_opts == 'autos' %} selected {% endif %}> Транспорт СМП </option>
+			<option value='0'> Да </option>
+			<option value='1'> Нет </option>
+			<option value='2'> Сегодня </option>
+			</select>
+		</div>
+		<div id='head_CC' class="col col-1 ">
+			<span id='load_ts' class='asbutton' onclick=" start_ws(); "> <i class="fa fa-refresh fa-lg" aria-hidden="true"></i> </span>
+		</div>
+		<div id='head_CC' class="col col-1 ">
+			<span class='tit'>	
+			<a style='color: #fff; font-size: 14pt;' href="{{ url_for('logout') }}" title="Выход"> <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i></a></span>
+		</div>
+	</div>
+	<div id='nsi_body' style='width: 100%; min-height: 600px; overflow: auto'>
+	{% if opts %}
+	ЙЦУКЕН
+		{{ opts }}
+	{% endif %}
+	</div>
+	</form>
+	{% for message in get_flashed_messages() %} <div class=flash>{{ message }}</div> {% endfor %}
+{% endif %}
+{% endblock %}

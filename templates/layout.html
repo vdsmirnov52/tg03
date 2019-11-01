@@ -1,0 +1,39 @@
+<!doctype html>
+<head>
+	<title>СМП {{ config['TITLE'] }}</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+{% if session.logged_in %}
+	<script type='text/javascript' src="{{ url_for('static', filename='jq/jquery.js') }}"></script>
+	<script type='text/javascript' src="{{ url_for('static', filename='jq/jquery.onajax_answer.js') }}"></script>
+	<script type='text/javascript' src="{{ url_for('static', filename='js/ff.js') }}"></script>
+	<script type='text/javascript' src="{{ url_for('static', filename='js/check_key.js') }}"></script>
+	<script type='text/javascript' src="{{ url_for('static', filename='js/document_ready.js') }}"></script>
+
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/03.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style03.css') }}">
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/custom.css') }}">
+{% else %}
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+{% endif %}
+</head>
+<body>
+<div class="main">
+  {% block body %}
+  <div class=page>
+  <h1> Ретранслятор данных от ТС СМП НН</h1>
+  <h2> {{ sdate }} </h2>
+  <div class=metanav>
+  {% if not session.logged_in %}
+    <a href="{{ url_for('login') }}"><b>[ log in ] <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i></b></a>
+  {% else %}
+    <a href="{{ url_for('logout') }}"><b>[ log out ] <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i> </b></a>
+  {% endif %}
+  </div>
+  {% for message in get_flashed_messages() %} <div class=flash>{{ message }}</div> {% endfor %}
+  {% endblock %}
+</div>
+</div>
+</body>

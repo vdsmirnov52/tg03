@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if not session.logged_in %}
+	<h2>Необходима реристрация</h2>
+{% else %}
+	<h2>{{ desc }}</h2>
+	<form name='myForm' action="{{ url_for('set_entry') }}" method=post>
+	&nbsp; IP:	<input type=text name=repeater_ip value="{{ s_ip }}" onkeypress='return ip_key(event)' />
+	&nbsp; port:	<input type=text name=repeater_port size=6 value="{{ sport }}" onkeypress='return intkey(event)' />
+	&nbsp;&nbsp;	<input type=button onclick="if (confirm ('Сохранить изменения?')) { document.myForm.submit(); }" value=Изменить />
+<!--	&nbsp;&nbsp;	<input type=button onclick="if (confirm ('Сохранить изменения?')) {document.myForm.stat.value='update'; document.myForm.submit();}" value=Изменить />
+	<input name='stat' type='hidden' value='' /-->
+	</form>
+{% endif %}
+{% if error %}
+	<p class=error><strong>Error:</strong> {{ error }}
+{% elif nxdata %}
+	<div style='font-size: 12pt; color: #a00; padding: 8pt; background-color: #fee; margin: 8pt;'>
+	Изменнение направления потока данных от ТС СМП НН <br>
+	на сервер <b> {{ s_ip }}:{{ sport }} </b> произойдет в <b>03:50 {{ nxdata }} </b>
+	</div>
+{% endif %}
+{% endblock %}
