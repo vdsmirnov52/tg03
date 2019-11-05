@@ -3,14 +3,36 @@
 {% if not session.logged_in %}
 	<h2>Необходима реристрация</h2>
 {% else %}
-	<h2>{{ desc }}</h2>
-	<form name='myForm' action="{{ url_for('set_entry') }}" method=post>
-	&nbsp; IP:	<input type=text name=repeater_ip value="{{ s_ip }}" onkeypress='return ip_key(event)' />
-	&nbsp; port:	<input type=text name=repeater_port size=6 value="{{ sport }}" onkeypress='return intkey(event)' />
-	&nbsp;&nbsp;	<input type=button onclick="if (confirm ('Сохранить изменения?')) { document.myForm.submit(); }" value=Изменить />
+<h2>File: index.html {{ desc }}</h2>
+<form name='myForm' action="{{ url_for('set_entry') }}" method=post>
+	<input name='stat' type='hidden' value='' />
+	<div class="menu_nav">
+		<div id='head_CC' class="col col-2">
+		<span class='tit'> ОО {{ config['TITLE'] }} </span>
+		</div>
+		<div id='head_CC' class="col col-2 line">	<span class='tit' onclick="set_shadow('calls')">
+			<i class="fa fa-refresh fa-lg" aria-hidden="true"></i> Вызова </span>
+		</div>
+		<div id='head_CC' class="col col-2 line">	<span class='tit' onclick="set_shadow('brigs')">
+			<i class="fa fa-refresh fa-lg" aria-hidden="true"></i> Бригада </span>
+		</div>
+		<div id='head_CC' class="col col-2">	<span class='tit'>
+			<i class="fa fa-refresh fa-lg" aria-hidden="true"></i> Архив </span>
+		</div>
+		<div id='head_CC' class="col col-2">	<span class='tit'> T:{{ g.sdate }} S: {{ session.nsi_opts }}</span>
+		</div>
+		<div id='head_CC' class="col col-1 " style="float: right;">
+			<span id='load_ts' class='asbutton' onclick=" start_ws(); "> <i class="fa fa-refresh fa-lg" aria-hidden="true"></i> </span>
+		&nbsp;
+			<span class='tit'>
+			<a style='color: #fff; font-size: 14pt;' href="{{ url_for('logout') }}" title="Выход"> <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i></a></span>
+		</div>
+	</div>
 <!--	&nbsp;&nbsp;	<input type=button onclick="if (confirm ('Сохранить изменения?')) {document.myForm.stat.value='update'; document.myForm.submit();}" value=Изменить />
 	<input name='stat' type='hidden' value='' /-->
-	</form>
+	<div id="oo_body">
+	</div>
+</form>
 {% endif %}
 {% if error %}
 	<p class=error><strong>Error:</strong> {{ error }}

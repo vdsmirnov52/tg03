@@ -57,7 +57,7 @@ def	set_entry():
 
 @app.route('/')
 def	index ():
-#	return	"<h1>Index t03</h1> %s: %s" % (app.config['DB_GSMP'], connect_pg (app.config['DB_GSMP']))
+	# return	"<h1>Index t03</h1> %s: %s" % (app.config['DB_GSMP'], connect_pg (app.config['DB_GSMP']))
 	sdate = time.strftime("%d-%m-%Y %T", time.localtime(time.time()))
 	g.sdate = sdate
 	if session.get('logged_in'):
@@ -96,8 +96,11 @@ def	nsi ():
 @app.route('/ajax', methods=['GET', 'POST'])
 def	ajax_html():
 	if request.method == 'POST':
-		name = request.form['name'];
-		return json.dumps({'len': session.get('logged_in')})	#len(name)})
+		# name = request.form['name'];
+		shstat = request.form.get('shstat')
+		if shstat == 'calls':		return "~oo_body| %s %s" % (request.form,  render_template('fcalls_head.html'))
+		if shstat == 'brigs':		return "~oo_body| %s %s" % (request.form,  render_template('find_brigs.html'))
+		return """~oo_body| json.dumps({'oo_body': "session.get('logged_in')"})	#len(name)})	"""
 	return render_template('ajax.html')
 
 def test ():
