@@ -1,0 +1,63 @@
+<!-- Заноловок поиска списка Бригад	find_brigs.html	-->
+<div id="fbrigs_head" class="green">
+<table width=100%> <tr> <td class="tit"> &nbsp; Бригады: <select name='sel_bwfind' onchange="$('#wdg_bc').html(''); set_shadow('BRG_WOKE');">
+<option value='1' > Бригады на линии </option>
+<option value='2' > Дежурный наряд </option>
+<option value='3' > Бригады на завтра </option>
+</select>	</td>
+<td align='center'> &nbsp; Подстанция: <select name='sel_subst' onchange="$('#wdg_bc').html(''); set_shadow('BRG_WOKE');">
+<option value=''>  </option>
+<option value='1' > Автозаводская </option>
+<option value='2' > Канавинская </option>
+<option value='3' > Ленинская </option>
+<option value='4' > Московская </option>
+<option value='5' > Нижегородская </option>
+<option value='6' > Приокская </option>
+<option value='7' > Советская </option>
+<option value='8' > Сормовская </option>
+<option value='9' > Северная </option>
+</select>	</td>
+<td align='center' width='40%'> &nbsp; Статус: <select name='sel_statb' onchange="$('#wdg_bc').html(''); set_shadow('BRG_WOKE');">
+<option value=''>  </option>
+<option value='0' > решение </option>
+<option value='1' > на подстанци </option>
+<option value='2' > ремонт </option>
+<option value='3' > обед </option>
+<option value='4' > нет машины </option>
+<option value='5' > обслуживание </option>
+<option value='6' > госпитализац </option>
+<option value='7' > перевозка </option>
+<option value='8' > заправка </option>
+<option value='9' > возвращение </option>
+<option value='10' > остановка </option>
+</select>	</td>
+<td align='center'> &nbsp; online	True	</td>
+<td align='right'>
+<i class="fa fa-refresh fa-2x line" aria-hidden="true" title="Искать" onclick="set_shadow('find_calls');"></i>  &nbsp;
+</td></tr></table>
+
+</div>	<!-- END fbrigs_head	-->
+<pre>
+sel_bwfind:
+1	SELECT * FROM bnaryd WHERE br_id > 0 ORDER BY number 
+2	SELECT * FROM brignrd WHERE smena = 4 ORDER BY number 
+3	SELECT * FROM brignrd WHERE smena = 1 ORDER BY number 
+
+<div id="list_brigs" style="border: thin solid #668; width: 100%; position: absolute; background-color: #fff; padding: 2px; min-height: 20%; max-height: 90%; overflow: auto;">
+<table id='tbl_brigs' width=100%><tr>
+<th>Бригада</th>
+<th> Смн </th>
+<th> Начало </th>
+<th> Конец </th>
+<th> П/С </th>
+<th> Старший бригады </th>
+<th> Статус </th>
+<th> Адрес </th>
+<th> Вызов </th>
+<th> Машина </th>
+<th> Водитель </th>
+</tr>
+</table>	<!-- tbl_brigs	-->
+</div>	<!-- list_brigs	-->
+~eval| $('#tbl_brigs tr.line').hover (function () { $('#tbl_brigs tr').removeClass('mark'); $(this).addClass('mark'); $('#shadow').text('')});
+
