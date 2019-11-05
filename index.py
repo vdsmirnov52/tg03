@@ -99,8 +99,8 @@ def	ajax_html():
 		# name = request.form['name'];
 		shstat = request.form.get('shstat')
 		if shstat == 'calls':		return "~oo_body| %s %s" % (request.form,  render_template('fcalls_head.html'))
-		if shstat == 'brigs':		return "~oo_body| %s %s" % (request.form,  render_template('find_brigs.html'))
-		return """~oo_body| json.dumps({'oo_body': "session.get('logged_in')"})	#len(name)})	"""
+		if shstat == 'brigs':		return "~oo_body| %s %s" % (dict(request.form),  render_template('find_brigs.html'))
+		return """~oo_body| ZZZ %s """ % dict(request.form)
 	return render_template('ajax.html')
 
 def test ():
