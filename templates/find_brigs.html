@@ -1,9 +1,9 @@
 <!-- Заноловок поиска списка Бригад	find_brigs.html	-->
 <div id="fbrigs_head" class="green">
 <table width=100%> <tr> <td class="tit"> &nbsp; Бригады: <select name='sel_bwfind' onchange="$('#wdg_bc').html(''); set_shadow('BRG_WOKE');">
-<option value='1' > Бригады на линии </option>
-<option value='2' > Дежурный наряд </option>
-<option value='3' > Бригады на завтра </option>
+<option value='1' {% if request.sel_bwfind == 1 %} selected {% endif %} > Бригады на линии </option>
+<option value='2' {% if request.sel_bwfind == 2 %} selected {% endif %} > Дежурный наряд </option>
+<option value='3' {% if request.sel_bwfind == 3 %} selected {% endif %} > Бригады на завтра </option>
 </select>	</td>
 <td align='center'> &nbsp; Подстанция: <select name='sel_subst' onchange="$('#wdg_bc').html(''); set_shadow('BRG_WOKE');">
 <option value=''>  </option>
@@ -43,6 +43,7 @@ sel_bwfind:
 2	SELECT * FROM brignrd WHERE smena = 4 ORDER BY number 
 3	SELECT * FROM brignrd WHERE smena = 1 ORDER BY number 
 
+	{{ query }}
 <div id="list_brigs" style="border: thin solid #668; width: 100%; position: absolute; background-color: #fff; padding: 2px; min-height: 20%; max-height: 90%; overflow: auto;">
 <table id='tbl_brigs' width=100%><tr>
 <th>Бригада</th>
@@ -57,6 +58,17 @@ sel_bwfind:
 <th> Машина </th>
 <th> Водитель </th>
 </tr>
+<tbody id="ZZZ">
+<tr class='line bfinf' id='brid325'  onclick="set_shadow('brg_form&br_id=' +'325' +'&bfrom=' +'bnaryd');" ><td><span class="bfinf"> <i class="fa fa-medkit fa-lg" aria-hidden="true"></i>&nbsp;105Ф  </span></td>
+<td> 4 </td> <td> 08:00 </td> <td> 08:00 </td> <td> 1 </td>
+<td> Чебурков И.А. фельдшер </td> <td> обслуживание </td> <td> П/С 1 Автозаводская  </td>
+<td> <i class="fa fa-newspaper-o fa-lg" aria-hidden="true"></i>&nbsp;1106 </td>
+<td> <i class="fa fa-ambulance fa-lg" aria-hidden="true"></i>&nbsp;A179HH   </td>
+<td> Валов Д.В.           </td>
+</tr>
+<tr><td>
+	ZZZZZZ
+</tbody>
 </table>	<!-- tbl_brigs	-->
 </div>	<!-- list_brigs	-->
 ~eval| $('#tbl_brigs tr.line').hover (function () { $('#tbl_brigs tr').removeClass('mark'); $(this).addClass('mark'); $('#shadow').text('')});

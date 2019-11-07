@@ -10,16 +10,18 @@
 		<div id='head_CC' class="col col-2">
 		<span class='tit'> ОО {{ config['TITLE'] }} </span>
 		</div>
-		<div id='head_CC' class="col col-2 line">	<span class='tit' onclick="set_shadow('calls')">
-			<i class="fa fa-refresh fa-lg" aria-hidden="true"></i> Вызова </span>
+		<div id='head_CC' class="col col-3 line">	<span class='tit' onclick="document.myForm.stat.value='calls'; set_shadow('calls')">
+			<i class="fa fa-newspaper-o fa-lg" aria-hidden="true"></i> Вызова &nbsp; </span>
+		<!--/div>
+		<div id='head_CC' class="col col-2 line"-->	<span class='tit' onclick="document.myForm.stat.value='brigs'; set_shadow('brigs')">
+			<i class="fa fa-medkit fa-lg" aria-hidden="true"></i> Бригады &nbsp; </span>
+		<!--/div>
+		<div id='head_CC' class="col col-2"-->	<span class='tit'>
+			<i class="fa fa-archive fa-lg" aria-hidden="true"></i> Архив &nbsp; </span>
 		</div>
-		<div id='head_CC' class="col col-2 line">	<span class='tit' onclick="set_shadow('brigs')">
-			<i class="fa fa-refresh fa-lg" aria-hidden="true"></i> Бригада </span>
+		<div id='head_CC' class="col col-2">    <span class='tit'> {{ session.user.name }} </span> {{ session.user.tname }}
 		</div>
-		<div id='head_CC' class="col col-2">	<span class='tit'>
-			<i class="fa fa-refresh fa-lg" aria-hidden="true"></i> Архив </span>
-		</div>
-		<div id='head_CC' class="col col-2">	<span class='tit'> T:{{ g.sdate }} S: {{ session.nsi_opts }}</span>
+		<div id='head_CC' class="col col-2">	<span class='tit'> T:{{ g.sdate }}</span>
 		</div>
 		<div id='head_CC' class="col col-1 " style="float: right;">
 			<span id='load_ts' class='asbutton' onclick=" start_ws(); "> <i class="fa fa-refresh fa-lg" aria-hidden="true"></i> </span>
