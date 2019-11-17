@@ -13,6 +13,7 @@ app.config.from_object(__name__)
 
 # Загружаем конфиг по умолчанию и переопределяем в конфигурации часть
 # значений через переменную окружения
+print app.root_path
 app.config.update(dict(
 	DATABASE=os.path.join(app.root_path, 'users.db'),
 	DEBUG=True,
@@ -54,6 +55,7 @@ def	is_person (ulogin, password):
 
 @app.route('/set', methods=['POST'])
 def	set_entry():
+	print 'set_entry', request.form
 	error = None
 	if request.form.get('nsi_opts') in ['person', 'autos', 'norms']:
 		opts_name = request.form.get('nsi_opts')
