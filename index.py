@@ -13,7 +13,7 @@ app.config.from_object(__name__)
 
 # Загружаем конфиг по умолчанию и переопределяем в конфигурации часть
 # значений через переменную окружения
-print app.root_path
+print "MOD: index.py \t", app.root_path
 app.config.update(dict(
 	DATABASE=os.path.join(app.root_path, 'users.db'),
 	DEBUG=True,
