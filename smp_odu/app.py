@@ -11,9 +11,8 @@ from simple_page.simple_page import simple_page
 # pip install Flask-Bcrypt
 # pip install Flask-Login
 
-def create_app():
+def create_app(config_object='smp_odu.settings'):
 	"""An application factory, as explained here: http://flask.pocoo.org/docs/patterns/appfactories/.
-
 	:param config_object: The configuration object to use.
 	"""
 	# print "create_app:", __name__
@@ -21,7 +20,7 @@ def create_app():
 	app.url_map.strict_slashes = False
 	app.config.update(config)
 	app.register_blueprint(simple_page)
-	# app.config.from_object(config_object)
+	app.config.from_object(config_object)
 #	register_extensions(app)
 #	register_blueprints(app)
 #	register_errorhandlers(app)
