@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if not session.logged_in %}
+	<h2>Необходима реристрация</h2>
+{% else %}
+	<h2>Есть регистрация</h2>
+	{{ session.user['name'] }}
+	<ul>
+	{% for k in session.user.keys() %}
+		<li> {{ k }} {{ session.user[k] }}
+	{% endfor %}
+	</ul>
+	<h3><a href="{{ url_for('simple_page.logout') }}">LOG UOT</a><h3>
+	<h3><a href="{{ url_for('simple_page.login') }}">LOG IN</a><h3>
+{% endif %}
+{% endblock %}
