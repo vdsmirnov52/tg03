@@ -3,9 +3,9 @@
 from flask import Blueprint, render_template, abort, url_for, current_app, session, redirect, request, flash
 from jinja2 import TemplateNotFound
 
-import time
+import time, os
 
-simple_page = Blueprint('simple_page', __name__, static_folder='../../static',
+simple_page = Blueprint('simple_page', __name__, #static_folder='../../static',
                         template_folder= '../../templates')    #'/templates')
 '''
 @simple_page.route('/')
@@ -19,12 +19,12 @@ def rrr():
 def show(page):
     from run import app
     pname = '%s.html' % page
-    print url_for('static', filename='CSS')
+    # print "simple_page.root_path", os.system("ls -l %s/*" % simple_page.static_folder)
     # for k in current_app.config.keys():        print '%33s' % k, app.config.get(k)
     # return "Hello %s !" % pname
     try:
         if session.get('logged_in'):
-            return render_template('index.html')
+            return render_template('rem.html', data='index.html')
         else:
             return render_template('login.html', sdate=time.strftime("%d-%m-%Y %T", time.localtime(time.time())))
         templates = '%s/templates' % current_app.config.get('APP_ROOT')
