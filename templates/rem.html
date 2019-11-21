@@ -1,7 +1,24 @@
 {% extends "layout.html" %}
 {% block body %}
 <div class="main">
-<h2>REM  {{ data }} </h2>
+    <h2>REM  {{ data }} </h2>
+	<pre>
+	Старший врач
+	5049	5049  | щ5049	Овечкин А.М.
+	7777 	vds   | 41tvjlby	Смирнов В.Б.	<a href="{{ url_for('simple_page.login', password='41tvjlby', ulogin='vds') }}">LOG IN</a>
+	Дисп. 03
+		2054  | m2054
+		1055  | k1055
+	Дисп. направлени
+		3055  | p3055
+		2027  | m2027
+	Дисп. ПС
+		6221  | a6221
+		6123  | k6123
+	6101	6101   | k6101	Кондратьев А.А. | Зав. ПС
+	5555	vadmak | ljrnjh Макаров В.Г. | Зав. ОО
+	</pre>
+    <h3><a href="{{ url_for('simple_page.login') }}">LOG IN</a><h3>
 </div>
 {% endblock %}
 

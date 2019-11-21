@@ -5,14 +5,13 @@ from jinja2 import TemplateNotFound
 
 import time, os
 
-simple_page = Blueprint('simple_page', __name__, #static_folder='../../static',
+simple_page = Blueprint('simple_page', __name__,
                         template_folder= '../../templates')    #'/templates')
 '''
 @simple_page.route('/')
 def rrr():
     return render_template('rem.html')
     return "Z"*33
-'''
 
 @simple_page.route('/', defaults={'page': 'index'})
 @simple_page.route('/<page>')
@@ -33,10 +32,10 @@ def show(page):
         return render_template('rem.html', data=simple_page.root_path)  # pname)
     except TemplateNotFound:
         abort(404)
+'''
 
 
 from pylib import dbtools
-from pylib import parse_res
 import json
 
 def	get_user(ulogin, password):
@@ -65,19 +64,21 @@ def	get_user(ulogin, password):
 def logout():
     session.pop('logged_in', None)
 #	flash(u'Вы вышли из системы')	#'You were logged out')
-    return render_template('login.html', sdate = time.strftime("%d-%m-%Y %T", time.localtime(time.time())))
+    return redirect(url_for('simple_page.login'))
+    # return render_template('login.html', sdate = time.strftime("%d-%m-%Y %T", time.localtime(time.time())))
 	# return redirect(url_for('index'))
 
 
 @simple_page.route('/login', methods = ['GET', 'POST'])
 def login():
     error = None
-    print "\tLogin:"
+    print "\tLogin:", request.form
     flash(str(request.form))
-    if request.method == 'POST':
-        flash('POST')
+    flash(request.method)
+    if request.method in ['POST', 'GET']:
         if get_user(request.form.get('ulogin'), request.form.get('password')):
-            return render_template('test.html')
+            return redirect('show')
+            # return render_template('test.html')
         
     return render_template('login.html', sdate = time.strftime("%d-%m-%Y %T", time.localtime(time.time())), error = error)
 
