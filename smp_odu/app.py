@@ -23,9 +23,14 @@ def create_app(config_object='smp_odu.settings'):
 	app.register_blueprint(simple_page)
 	app.register_blueprint(main_page)
 	app.config.from_object(config_object)
-#	register_extensions(app)
+	# register_extensions(app)
 #	register_blueprints(app)
 #	register_errorhandlers(app)
 #	register_shellcontext(app)
 #	register_commands(app)
 	return app
+
+def register_extensions(app):
+	flask_wtf.init_app(app)
+	wtforms.init_app(app)
+	return None

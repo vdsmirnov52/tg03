@@ -53,6 +53,7 @@ def	is_person (ulogin, password):
 		else:	flash (u'Нет доступа к БД (%s)' % app.config['DB_GSMP'])
 	return	False	#"is_person (%s %s)" % (ulogin, password)
 
+
 @app.route('/set', methods=['POST'])
 def	set_entry():
 	print 'set_entry', request.form

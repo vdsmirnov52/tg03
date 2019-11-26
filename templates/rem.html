@@ -2,6 +2,25 @@
 {% block body %}
 <div class="main">
     <h2>REM  {{ data }} </h2>
+	{% if form %}
+	<div class="main">
+	<form action="index.html" method="post" novalidate>
+		{{ form.hidden_tag() }}
+		<table>
+			<tr><td>{{ form.disp.label }}</td><td>{{ form.disp(size=6) }}</td></tr>
+			<tr><td>{{ form.code.label }}</td><td>{{ form.code(size=6) }}</td></tr>
+			<tr><td>{{ form.name.label }}</td><td>{{ form.name(size=20) }}</td></tr>
+			<tr><td>{{ form.snils.label }}</td><td>{{ form.snils(size=16) }}</td></tr>
+			<tr><td>{{ form.type.label }}</td><td>{{ form.type }}</td></tr>
+			<tr><td>{{ form.mdate.label }}</td><td>{{ form.mdate(size=20) }}</td></tr>
+		</table>
+		{{ form.submit() }}
+		{% for message in get_flashed_messages() %} <div class=flash>{{ message }}</div> {% endfor %}
+	</form>
+	</div>
+	{% else %}
+	<b>Not Form </b>
+	{% endif %}
 	<pre>
 	Старший врач
 	5049	5049  | щ5049	Овечкин А.М.
