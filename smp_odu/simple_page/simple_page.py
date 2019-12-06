@@ -77,7 +77,7 @@ def login():
     flash(request.method)
     if request.method in ['POST', 'GET']:
         if get_user(request.form.get('ulogin'), request.form.get('password')):
-            return redirect('show')
+            return redirect(url_for('main_page.show'))
             # return render_template('test.html')
         
     return render_template('login.html', sdate = time.strftime("%d-%m-%Y %T", time.localtime(time.time())), error = error)
