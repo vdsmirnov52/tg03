@@ -13,27 +13,57 @@
 	<script type='text/javascript' src="{{ url_for('static', filename='js/document_ready.js') }}"></script>
 
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/03.css') }}">
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style03.css') }}">
-	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/custom.css') }}">
+	<!--link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}"-->
+	<!--link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/custom.css') }}"-->
 {% else %}
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 {% endif %}
 </head>
 <body>
-<div class="main">
-  {% block body %}
-  <div class=page>
-  <h1> Ретранслятор данных от ТС СМП НН</h1>
-  <h2> {{ sdate }} </h2>
-  <div class=metanav>
-  {% if not session.logged_in %}
-    <a href="{{ url_for('login') }}"><b>[ log in ] <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i></b></a>
-  {% else %}
-    <a href="{{ url_for('logout') }}"><b>[ log out ] <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i> </b></a>
-  {% endif %}
-  </div>
-  {% for message in get_flashed_messages() %} <div class=flash>{{ message }}</div> {% endfor %}
-  {% endblock %}
+
+<div id="head" class="menu_nav">
+     <table width="100%" border="0" >
+         <tr><td class="tit" style="font-size: 14pt;"> &nbsp; СМП Городец</td>
+             <td><span class="tit">  {{ session.user['name'] }}  &nbsp; </span>
+                 {{ session.user['tname'] }}
+             </td>
+             <td id="curr_dtime">  {{ curr_dtime }}    </td>
+             <td align="right"><a style="color: #fff" href="{{ url_for('simple_page.logout') }}">LOG UOT &nbsp; </a></td>
+         </tr>
+    </table>
 </div>
+<table width="100%"><tr>
+{% if session.user.get('type') in [2, 4, 8, 16] %}
+    <td width="230px" style="vertical-align: top; padding: 10px;" class="menu_nav">
+    <div id="panele" style="min-height: 200px; padding: 40px;"> <!--class="menu_nav"-->
+        <!--ul style="list-style-type: none; line-height: 20pt; hover {color: #FF0;}"-->
+        <li class="tit line mark" onclick="$('#my_body').html(''); set_shadow('BRG_WOKE');"> Бригады </li>
+        <li class="bfligt line" onclick="set_shadow('KuKu');"> KuKu </li>
+        Menu</ul>
+    </div>
+        <div id="events" style="min-height: 400px; padding: 10pt; line-height: 20pt;">
+            Events:
+        </div>
+    </td>
+{% endif %}
+    <td style="vertical-align: top;">
+    <div id="my_body" class="main" >
+      {% block body %}
+      <div class=page>
+      <h1> Ретранслятор данных от ТС СМП НН</h1>
+      <h2> {{ sdate }} </h2>
+      <div class=metanav>
+      {% if not session.logged_in %}
+        <a href="{{ url_for('login') }}"><b>[ log in ] <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i></b></a>
+      {% else %}
+        <a href="{{ url_for('logout') }}"><b>[ log out ] <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i> </b></a>
+      {% endif %}
+      </div>
+      {% for message in get_flashed_messages() %} <div class=flash>{{ message }}</div> {% endfor %}
+      {% endblock %}
+      </div>
+    </div>
+    </td>
+</tr></table>
 <!--/div	-->
 </body>
