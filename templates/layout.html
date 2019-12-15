@@ -24,16 +24,20 @@
 <div id="head" class="menu_nav">
      <table width="100%" border="0" >
          <tr><td class="tit" style="font-size: 14pt;"> &nbsp; СМП Городец</td>
+		{% if session.logged_in %}
              <td><span class="tit">  {{ session.user['name'] }}  &nbsp; </span>
                  {{ session.user['tname'] }}
              </td>
+		{% else %}
+		<td><span class="tit bferr"> Неизвестный пользователь	</span>
+		{% endif %}
              <td id="curr_dtime">  {{ curr_dtime }}    </td>
-             <td align="right"><a style="color: #fff" href="{{ url_for('simple_page.logout') }}">LOG UOT &nbsp; </a></td>
+             <td align="right"><a class="tit" href="{{ url_for('simple_page.logout') }}">LOG UOT</a> &nbsp; </td>
          </tr>
     </table>
 </div>
 <table width="100%"><tr>
-{% if session.user.get('type') in [2, 4, 8, 16] %}
+{% if session.logged_in and session.user.get('type') in [2, 4, 8, 16] %}
     <td width="230px" style="vertical-align: top; padding: 10px;" class="menu_nav">
     <div id="panele" style="min-height: 200px; padding: 40px;"> <!--class="menu_nav"-->
         <!--ul style="list-style-type: none; line-height: 20pt; hover {color: #FF0;}"-->

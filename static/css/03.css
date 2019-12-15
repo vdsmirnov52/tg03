@@ -61,3 +61,5 @@ div.tree	{top: 60px; left: 180px; position: absolute; padding: 4px; margin: 4px;
 .omsys	{ padding: 4px; border: thin solid #8c8; margin: 1px; border-radius: 5px; background-color: #efe; cursor: pointer; color: #080; font-weight: bold;}
 .omsno	{ padding: 4px; border: thin solid #c88; margin: 1px; border-radius: 5px; background-color: #fee; cursor: pointer; color: #a00; font-weight: bold;}
 .warning	{ padding: 4px; border: thin solid #ba7; margin: 1px; border-radius: 5px; background-color: #fed; cursor: pointer; color: #844; font-weight: bold;}
+
+.menu_nav	{background-color: #bcd; padding: 4px;  border: thin solid #abc;}
