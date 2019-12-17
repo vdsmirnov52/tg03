@@ -13,7 +13,7 @@
 	<script type='text/javascript' src="{{ url_for('static', filename='js/document_ready.js') }}"></script>
 
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/03.css') }}">
-	<!--link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/style.css') }}"-->
+	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/current.css') }}">
 	<!--link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/custom.css') }}"-->
 {% else %}
 	<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
@@ -39,15 +39,18 @@
 <table width="100%"><tr>
 {% if session.logged_in and session.user.get('type') in [2, 4, 8, 16] %}
     <td width="230px" style="vertical-align: top; padding: 10px;" class="menu_nav">
-    <div id="panele" style="min-height: 200px; padding: 40px;"> <!--class="menu_nav"-->
+    <div id="panele">
+        <div id="menu" style="min-height: 220px;">
         <!--ul style="list-style-type: none; line-height: 20pt; hover {color: #FF0;}"-->
-        <li class="tit line mark" onclick="$('#my_body').html(''); set_shadow('BRG_WOKE');"> Бригады </li>
-        <li class="bfligt line" onclick="set_shadow('KuKu');"> KuKu </li>
+        <li class="lpanele" style="list-style-type: none;" onclick="$('#my_body').html(''); set_shadow('CLL_OPER&ALL=123qweФЫВА');"> Вызова </li>
+        <li class="lpanele" style="list-style-type: none;" onclick="$('#my_body').html(''); set_shadow('BRG_WOKE, LLL');"> Бригады </li>
+        <li class="lpanele" onclick="set_shadow('KuKu');"> KuKu </li>
         Menu</ul>
-    </div>
-        <div id="events" style="min-height: 400px; padding: 10pt; line-height: 20pt;">
+        </div>
+        <div id="events" style="min-height: 400px; line-height: 20pt;">
             Events:
         </div>
+    </div>
     </td>
 {% endif %}
     <td style="vertical-align: top;">
@@ -63,9 +66,9 @@
         <a href="{{ url_for('logout') }}"><b>[ log out ] <i class="fa fa-sign-out fa-lg" aria-hidden="true"></i> </b></a>
       {% endif %}
       </div>
+      </div>
       {% for message in get_flashed_messages() %} <div class=flash>{{ message }}</div> {% endfor %}
       {% endblock %}
-      </div>
     </div>
     </td>
 </tr></table>

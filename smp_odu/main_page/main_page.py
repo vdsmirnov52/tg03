@@ -26,6 +26,13 @@ def show(page):
 	# for k in env.keys():     print "%32s =" % k, env[k]
 	if session.get('logged_in'):
 		# return "@main_page.route %s" % pname
+		if page == 'ajax':
+			sajax = ["curr_dtime|%s" % sdate, "events| %s" % dict(request.form)]
+			ss = dict(request.form).get('shstat')
+			print "\tSS", ss
+			if ss and ss[0] == 'KuKu':  sajax.append("my_body| %s" % render_template('test.html'))
+			return '~'.join(sajax)
+			# return "~curr_dtime| %s ~events| %s" % (sdate, dict(request.form))
 		return render_template('test.html')
 	else:
 		val = ('123', 'ZZZ')

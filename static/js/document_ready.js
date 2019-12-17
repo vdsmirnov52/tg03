@@ -5,9 +5,10 @@ function	set_shadow (shstat) {	$.ajax({data: 'shstat='+ shstat +'&' +$('form').s
 
 $(document).ready(function () {
 	$.ajaxSetup({ url: "/ajax", type: "post", error: onAjaxError, success: onAjaxSuccess, timeout: 30000 });
+	$('#panele').css({'height': -66 + document.documentElement.clientHeight +'px', 'width': '100%'});
+	$('#my_body').css({'height': -70 + document.documentElement.clientHeight +'px', 'width': '100%', 'overflow': 'auto'});
 //	start_ws();
 /*
-	$('#map').css({'height': -40 + document.documentElement.clientHeight +'px', 'width': '100%'});		// на Карте
 	mymap = L.map('map').setView([56.32354, 43.99121], 10);
 
 var	rnic_nn = ' &copy; <a href="http://rnc52.ru/" title="РНИЦ Нижегородской области">RNIC 52</s>';
