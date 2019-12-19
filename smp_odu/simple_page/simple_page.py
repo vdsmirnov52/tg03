@@ -2,8 +2,11 @@
 
 from flask import Blueprint, render_template, abort, url_for, current_app, session, redirect, request, flash
 from jinja2 import TemplateNotFound
+from werkzeug.local import LocalProxy
+
 
 import time, os
+import json
 
 simple_page = Blueprint('simple_page', __name__,
                         template_folder= '../../templates')    #'/templates')
@@ -35,15 +38,14 @@ def show(page):
 '''
 
 
-from pylib import dbtools
-import json
-
 def	get_user(ulogin, password):
     if not (login and password):
         flash(u'Отсутствуют прльзователь login: %s  password: %s' % (ulogin, password))
     else:
-	from run import app
-        idb = dbtools.dbtools(app.config['DB_GSMP'])	#'host=212.193.103.21 dbname=b03 port=5432')
+        # print "CURR app", current_app.name
+    	from run import get_db
+        idb = LocalProxy(get_db)
+        # idb = dbtools.dbtools(current_app.config.get('DB_GSMP'))	#'host=212.193.103.21 dbname=b03 port=5432')
         if idb and idb.last_error:
             # print perse_res.ures(idb.last_error[:2])
             flash('%s %s' % (idb.last_error[0], str(idb.last_error[1]).decode('UTF-8')))
