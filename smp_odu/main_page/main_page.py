@@ -1,15 +1,19 @@
 # -*- coding: utf-8 -*-
 
-from flask import Blueprint, render_template, abort, url_for, current_app, session, redirect, request, flash
-from jinja2 import TemplateNotFound
+from flask import Blueprint, render_template, session, request, flash
 from werkzeug.local import LocalProxy
 
-import time, os
+import time
 import forms
 
 main_page = Blueprint('main_page', __name__, template_folder= '../../templates')	#'/templates')
 
 '''
+	DELETE FROM calls WHERE nsbrg <3;
+	DELETE FROM brignrd WHERE n_pst > 2;
+	DELETE FROM bnaryd WHERE n_pst > 2;
+	DELETE FROM sp_station WHERE cod > 2 AND cod <15;
+	DELETE FROM usr03 WHERE subst > 2;
 '''
 
 
@@ -22,14 +26,22 @@ def sout_row (row, **keywords):
 			ss.append("%s: '%s'" % (k, keywords[k]))
 	return '\t'.join(ss)
 	
-def get_data():
+
+def get_data(tname, **keywords):
+	""" Читать данные из БД "SELECT {*|<cols>} FROM <tname> [WHERE <where>] [<tail>];
+	tname = <наименование таблицы (FROM ...)>
+	keywords:
+		cols = <наименование столбцов запрса (SELECT ...)>
+		where = <условия (WHERE ...)>
+		tail = [ORDER BY ... | LIMIT ... | ...]"""
 	from run import get_db
 	idb = LocalProxy(get_db)
 	query = "SELECT * FROM vperson_sp WHERE n_pst IN (1,2)"
 	rows = idb.get_rows(query)
-	if not rows:    return "Not data"
+	res = idb.get_table(tname)
+	if not res:    return "Not data"
 	ress = ["<pre>"]
-	for r in rows:
+	for r in res[1]:
 		ress.append(sout_row(r)) #, format='default'))
 	ress.append("</pre>")
 	return "\n".join(ress)
@@ -53,7 +65,7 @@ def show(page):
 			ss = dict(request.form).get('shstat')
 			print "\tSS", ss
 			if ss and ss[0] == 'KuKu':  sajax.append("my_body| %s" % render_template('test.html'))
-			if ss and ss[0] == 'CLL_OPER':  sajax.append("my_body| %s" % get_data())
+			if ss and ss[0] == 'CLL_OPER':  sajax.append("my_body| %s" % get_data('call', swhere="t_done IS NULL"))
 			return '~'.join(sajax)
 			# return "~curr_dtime| %s ~events| %s" % (sdate, dict(request.form))
 		return render_template('test.html')

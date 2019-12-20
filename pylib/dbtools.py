@@ -59,14 +59,20 @@ class   dbtools:
 			return  d
 		return  r
 
-	def	get_table (self, tname, swhere = None, cols = None):
-		""" Читать таблицу из БД "SELECT {*|<cols>} FROM <tname> [WHERE <swhere>];"	"""
+	def	get_table (self, tname, swhere = None, cols = None, tail =None):
+		""" Читать таблицу из БД "SELECT {*|<cols>} FROM <tname> [WHERE <swhere>];"
+		tname = <наименование таблицы (FROM ...)>
+		swhere = <условия (WHERE ...)>
+		cols = <наименование столбцов запрса (SELECT ...)>
+		tail = [ORDER BY ... | LIMIT ... | ...] """
 		if not cols:	cols = '*'
+		if not tail:    tail = ''
 		if not swhere:
-			query = "SELECT %s FROM %s;" % (cols, tname)
-		else:	query = "SELECT %s FROM %s WHERE %s;" % (cols, tname, swhere)
+			query = "SELECT %s FROM %s %s;" % (cols, tname, tail)
+		else:	query = "SELECT %s FROM %s WHERE %s %s;" % (cols, tname, swhere, tail)
 		self.rows = self.get_rows (query)
-		if self.rows:	return	self.desc, self.rows
+		if self.rows:
+			return self.desc, self.rows
 
 	def	get (self, query, fall):
 		self.last_error = None

@@ -41,6 +41,11 @@
     <td width="230px" style="vertical-align: top; padding: 10px;" class="menu_nav">
     <div id="panele">
         <div id="menu" style="min-height: 220px;">
+            {% for l in session.menu %}
+            {% if l['type'] in range(session.user['type']) %}
+            <li class="lpanele"> {{ l.get('name') }}</li>
+            {% endif %}
+            {% endfor %}
         <!--ul style="list-style-type: none; line-height: 20pt; hover {color: #FF0;}"-->
         <li class="lpanele" style="list-style-type: none;" onclick="$('#my_body').html(''); set_shadow('CLL_OPER&ALL=123qweФЫВА');"> Вызова </li>
         <li class="lpanele" style="list-style-type: none;" onclick="$('#my_body').html(''); set_shadow('BRG_WOKE, LLL');"> Бригады </li>

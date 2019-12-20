@@ -7,6 +7,8 @@ from werkzeug.local import LocalProxy
 
 import time, os
 import json
+import smp_odu.descriptions as descriptions
+
 
 simple_page = Blueprint('simple_page', __name__,
                         template_folder= '../../templates')    #'/templates')
@@ -50,7 +52,7 @@ def	get_user(ulogin, password):
             # print perse_res.ures(idb.last_error[:2])
             flash('%s %s' % (idb.last_error[0], str(idb.last_error[1]).decode('UTF-8')))
         elif idb:
-            ulogin, password = ['6827', 'p6827']
+            ulogin, password = ['6214', 's6214']
             query = """SELECT u.disp, u.type, u.smena, u.subst, p.name, t.name AS tname FROM usr03 u
                 JOIN person_sp p ON u.cod = p.cod JOIN sp_usrtype t ON u.type = t.cod WHERE login='%s' AND passwd='%s'""" % (ulogin, password)
             flash(query)
@@ -58,6 +60,7 @@ def	get_user(ulogin, password):
             if ruser:
                 session['logged_in'] = True
                 session['user'] = json.loads(json.dumps(ruser))
+                session['menu'] = descriptions.MENU_OO
                 return True
         else:
             flash("Not connect: ")
