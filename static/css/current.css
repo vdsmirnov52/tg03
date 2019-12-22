@@ -1,4 +1,5 @@
 /* SMP 17.12.2019	*/
+body	{overflow: hidden;}
 .lpanele	{font-size: 14px; font-weight: bold; cursor: pointer; list-style: none;	padding: 4px;}
 .lpanele:hover	{background-color: #cde;}
 .menu_nav	{background-color: #bcd; padding: 4px;  border: thin solid #abc;}

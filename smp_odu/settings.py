@@ -14,6 +14,6 @@ config = dict(
 	PASSWORD='123Admin',
 	TITLE=u'Городец',
 	# DB_GSMP='host=10.40.25.176 dbname=vms_ws port=5432 user=vms',
-	DB_GSMP='host=212.193.103.21 dbname=b03 port=5432 user=smirnov',
-	# DB_GSMP='host=127.0.0.1 dbname=b03 port=5432 user=smirnov',
+	# DB_GSMP='host=212.193.103.21 dbname=b03 port=5432 user=smirnov',
+	DB_GSMP='host=127.0.0.1 dbname=b03 port=5432 user=smirnov',
 )

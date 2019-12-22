@@ -5,7 +5,7 @@ function	set_shadow (shstat) {	$.ajax({data: 'shstat='+ shstat +'&' +$('form').s
 
 $(document).ready(function () {
 	$.ajaxSetup({ url: "/ajax", type: "post", error: onAjaxError, success: onAjaxSuccess, timeout: 30000 });
-	$('#panele').css({'height': -66 + document.documentElement.clientHeight +'px', 'width': '100%'});
+	$('#panele').css({'height': -66 + document.documentElement.clientHeight +'px', 'min-width': '190px'});
 	$('#my_body').css({'height': -70 + document.documentElement.clientHeight +'px', 'width': '100%', 'overflow': 'auto'});
 //	start_ws();
 /*
