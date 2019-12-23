@@ -42,10 +42,11 @@
     <div id="panele">
         <div id="menu" style="min-height: 220px;">
             {% for l in session.menu %}
-            {% if l['type'] in range(session.user['type']) %}
-            <li class="lpanele"> {{ l.get('name') }}</li>
+            {% if session.user.get('type') in l['type'] %}
+            <li class="lpanele" onclick="$('#my_body').html('');  set_shadow('{{ l.get('view') }}'); "> {{ l.get('name') }} </li>
             {% endif %}
             {% endfor %}
+            <li class="lpanele"><hr></li>
         <!--ul style="list-style-type: none; line-height: 20pt; hover {color: #FF0;}"-->
         <li class="lpanele" style="list-style-type: none;" onclick="$('#my_body').html(''); set_shadow('CLL_OPER&ALL=123qweФЫВА');"> Вызова </li>
         <li class="lpanele" style="list-style-type: none;" onclick="$('#my_body').html(''); set_shadow('BRG_WOKE, LLL');"> Бригады </li>

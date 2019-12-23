@@ -87,7 +87,9 @@ class   dbtools:
 			self.conn.commit()
 
 	def	close(self):
-		self.conn.close()
+		try:
+			self.conn.close()
+		except: pass
 
 	def	perrs (self, label = 'EXCEPT'):
 		exc_type, exc_value = sys.exc_info()[:2]

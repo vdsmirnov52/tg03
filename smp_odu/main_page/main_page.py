@@ -64,6 +64,8 @@ def show(page):
 			sajax = ["curr_dtime|%s" % sdate, "events| %s" % dict(request.form)]
 			ss = dict(request.form).get('shstat')
 			print "\tSS", ss
+			if ss and ss[0] == 'NEW_CALL':
+				sajax.append("my_body| %s" % render_template('new_call.html'))
 			if ss and ss[0] == 'KuKu':  sajax.append("my_body| %s" % render_template('test.html'))
 			if ss and ss[0] == 'CLL_OPER':  sajax.append("my_body| %s" % get_data('call', swhere="t_done IS NULL"))
 			return '~'.join(sajax)
