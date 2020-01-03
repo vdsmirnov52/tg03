@@ -43,13 +43,13 @@
         <div id="menu" style="min-height: 220px;">
             {% for l in session.menu %}
             {% if session.user.get('type') in l['type'] %}
-            <li class="lpanele" onclick="$('#my_body').html('');  set_shadow('{{ l.get('view') }}'); "> {{ l.get('name') }} </li>
+            <li class="lpanele" onclick="$('#shadpw_widget').html('');  set_shadow('{{ l.get('view') }}'); "> {{ l.get('name') }} </li>
             {% endif %}
             {% endfor %}
             <li class="lpanele"><hr></li>
         <!--ul style="list-style-type: none; line-height: 20pt; hover {color: #FF0;}"-->
         <li class="lpanele" style="list-style-type: none;" onclick="$('#my_body').html(''); set_shadow('CLL_OPER&ALL=123qweФЫВА');"> Вызова </li>
-        <li class="lpanele" style="list-style-type: none;" onclick="$('#my_body').html(''); set_shadow('BRG_WOKE, LLL');"> Бригады </li>
+        <li class="lpanele" style="list-style-type: none;" onclick="$('#my_body').html(''); set_shadow('BRG_WOKE');"> Бригады </li>
         <li class="lpanele" onclick="set_shadow('KuKu');"> KuKu </li>
         Menu</ul>
         </div>
@@ -76,6 +76,7 @@
       {% for message in get_flashed_messages() %} <div class=flash>{{ message }}</div> {% endfor %}
       {% endblock %}
     </div>
+    <div id="shadpw_widget" class="hidden"></div>
     </td>
 </tr></table>
 <!--/div	-->

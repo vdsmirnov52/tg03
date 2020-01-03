@@ -36,11 +36,14 @@ def get_data(tname, **keywords):
 		tail = [ORDER BY ... | LIMIT ... | ...]"""
 	from run import get_db
 	idb = LocalProxy(get_db)
-	query = "SELECT * FROM vperson_sp WHERE n_pst IN (1,2)"
-	rows = idb.get_rows(query)
+	# query = "SELECT * FROM vperson_sp WHERE n_pst IN (1,2)"
+	# rows = idb.get_rows(query)
+	
+	
 	res = idb.get_table(tname)
 	if not res:    return "Not data"
 	ress = ["<pre>"]
+	ress.append(str(idb.desc))
 	for r in res[1]:
 		ress.append(sout_row(r)) #, format='default'))
 	ress.append("</pre>")
@@ -65,9 +68,10 @@ def show(page):
 			ss = dict(request.form).get('shstat')
 			print "\tSS", ss
 			if ss and ss[0] == 'NEW_CALL':
-				sajax.append("my_body| %s" % render_template('new_call.html'))
+				sajax.append("shadpw_widget| %s" % render_template('new_call.html'))
 			if ss and ss[0] == 'KuKu':  sajax.append("my_body| %s" % render_template('test.html'))
 			if ss and ss[0] == 'CLL_OPER':  sajax.append("my_body| %s" % get_data('call', swhere="t_done IS NULL"))
+			if ss and ss[0] == 'BRG_WOKE':  sajax.append("my_body| %s" % get_data('bnaryd'))
 			return '~'.join(sajax)
 			# return "~curr_dtime| %s ~events| %s" % (sdate, dict(request.form))
 		return render_template('test.html')

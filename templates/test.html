@@ -3,11 +3,18 @@
 {% if not session.logged_in %}
 	<h2>Необходима реристрация</h2>
 {% else %}
+	{{ session.keys() }}
 	<h2>Есть регистрация</h2>
 	{% if session.user['name'] %}
 		<ul>
 		{% for k in session.user.keys() %}
 			<li> {{ k }} {{ session.user[k] }}
+		{% endfor %}
+		</ul>
+		session.menu:
+		<ul>
+		{% for l in session.menu %}
+		<li> {{ l.name }} {{ l.view }} {{ l.type }} {{ l.opts }}
 		{% endfor %}
 		</ul>
 	{% else %}
