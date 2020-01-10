@@ -1,13 +1,150 @@
 <div id="sss" style="top: 0px; left: 0px; width: 100%; height: 100%; background-color: #000; position: absolute; opacity: 0.2;">
 </div>
-
+<form name="myForm" method="post" novalidate>
 <div  style="top: 100px; left: 300px; width: 900px; background-color: #ffe; position: absolute;">
     <table width="100%"><tr class="tit main" style="background-color: #b67; color: #eef">
         <td><span onclick="alert('CLOSE'); /*$(#my_body).html('');*/ set_shadow('CLL_OPER'); "> CLOSE </span></td>
         <td><span> Новый вызов </span></td>
-        <td align="right"><span onclick="$('#shadpw_widget').html(''); set_shadow('CLL_OPER');"> <i class="fa fa-times fa-2x" aria-hidden="true"></i></span></td>
+        <td align="right">
+	    <span onclick="set_shadow('CLL_PRINT');"> <i class="fa fa-print fa-2x" aria-hidden="true" title="Печать"></i> </span> &nbsp;
+	    <span onclick="set_shadow('CLL_WINDW');"> <i class="fa fa-window-restore fa-2x" aria-hidden="true" title="Окно"></i> </span> &nbsp;
+	    <span onclick="$('#shadpw_widget').html(''); set_shadow('CLL_OPER');"> <i class="fa fa-times fa-2x" aria-hidden="true" title="Закрыть"></i></span>
+	</td>
     </tr></table>
-    <div style="min-height: 400px;">
+    <div id="call_body" style="min-height: 400px;">
         new_call_body
-    </div>
+	<fildset class="hidd">
+	<input type="hidden" name="reasn" value="">
+	<!--input type="hidden" name="stat" value=""-->
+	<input type="hidden" name="stack" value="">
+	<input type="hidden" name="street_id" value="">
+	<!--input type="hidden" name="sector" value=""-->
+	<!--input type="hidden" name="tkt_number" value=""-->
+	<input type="hidden" name="cnum_total" value="">
+	</fildset>
+form [{{ request.form['shstat'] }}]
+{% if not request.form['reasn'] %}
+TREE
+<table width="100%"><tr valign="top"><td>
+<span class="tit">Начало опроса</span><br>
+<ul id="first">
+{% for l in tree %}
+	<li class="line" style="list-style: none;" onclick="$('#first li').removeClass('mark'); $(this).addClass('mark'); document.myForm.stack.value='{{ l[0] }}';set_shadow('NEW_CALL')"> {#{ l[0] }} {{ l[2] }#}
+	{{ l[3] }}
+	{% if l[5] %} <b> {{ l[5] }} </b> {% endif %}
+	</li>
+{% endfor %}
+</td><td id="child_nodes">
+<li id="n003" class="line" style="list-style: none;" onclick="$('#first li').removeClass('mark'); $(this).addClass('mark'); document.myForm.stack.value='3'; set_shadow ('tree_alert&amp;node=3');"> 1.Умирает      </li>
+<li id="n672" class="line" style="list-style: none;" onclick="$('#first li').removeClass('mark'); $(this).addClass('mark'); document.myForm.stack.value='672'; set_shadow ('tree_alert&amp;node=672');"> 28.Дежурство спорт-общ. мероприятия 65Д  </li>
+</ul>
+<div id="RESULT"></div>
+</td></tr></table>
+-- TREE
+
+{% else %}
+	<div id="head_call" style="background-color: #27a; color: #eef; padding: 4px;"><table width="100%"><tbody><tr>
+	<td><span class="chmark bgred">  Новый Вызов &nbsp; 09:10&nbsp; 11Р б/созн., умирает                  &nbsp; </span></td>
+	<!--td align='center'>is_arch </td-->
+	<td align="right"></td>
+	<td align="right"><i class="fa fa-print fa-lg" title="Печать"></i></td>
+	<td align="right"><i class="fa fa-window-restore fa-lg"></i></td>
+	<!--td align='right'><i class="fa fa-times-circle-o fa-lg" ></i></td-->
+	</tr></tbody></table></div>	<!-- head_call	-->
+
+	<div id="reasn" class="call" style="background-color: #fff0aa;"><table width="100%">
+	<tbody><tr><td>Повод: <span class="tit" onclick=" set_shadow ('tree_alert&amp;cnum_total='); ">11Р б/созн., умирает                  </span></td>
+	<!--tr><td >Повод: <a onclick='change_reasn (); return false;' href=''><span class='tit'>11Р б/созн., умирает                  </span></a></td-->
+	<td><span class="bfinf">Притечание при опросе</span><!--input type='text' name='rem_reasn' value='' size='25' maxlength='32'  /--></td>
+	<td>Место:	<b><select name="place">
+	<option value="1"> 1 квартира         </option>
+	<option value="2"> 2 улица            </option>
+	<option value="3"> 3 обществ.место    </option>
+	<option value="4"> 4 рабочее место    </option>
+	<option value="5"> 5 подстанция       </option>
+	<option value="6"> 6 леч.учреждение   </option>
+	</select></b>	</td></tr><tr>
+	</tr></tbody></table></div>	<!-- reasn	-->
+
+	<div id="body_call" class="call" style="min-height: 300px;"><table width="100%" cellspacing="0" cellpadding="0">
+	<tbody><tr valign="top"><td>
+	<div id="addres" class="call" style="min-width: 640px;"><table width="100%" border="0">
+	<tbody><tr><td class="crw"> Улица:</td><td>
+	<b><input type="text" name="street" size="32" value="" onkeyup="return find_street (event);"></b>
+Дом:<b><input type="text" name="house" size="2" value="" onfocus="$('#RESULT').html(''); set_shadow('view_houses'); "></b>
+Корп.:<b><input type="text" name="korp" size="2" value="" onfocus="$('#RESULT').html(''); set_shadow('save_columns_tkt');"></b>
+	</td></tr><tr><td class="crw">
+Кв.:</td><td><b><input type="text" name="flat" size="3" value=""></b>
+Пд.:<b><input type="text" name="pdzd" size="1" value="" onkeypress="return intkey(event)"></b>
+Эт.:<b><input type="text" name="etj" size="1" value="" onkeypress="return intkey(event)"></b>
+Код:<b><input type="text" name="pcod" value="" size="3"></b>
+Тл.:<b><input type="text" name="phone" size="9" value="" onfocus="set_shadow('save_columns_tkt');"></b>
+	</td></tr></tbody></table></div>	<!-- addres	-->
+	<div id="pacient" class="call"><table width="100%">
+	<tbody><tr><td class="crw"> Фамил:</td><td colspan="3"><b><input type="text" name="name" value="" size="12" onfocus="set_shadow('save_columns_tkt');"></b> И.О.:<b><input type="text" name="name2" value="" size="12"></b> &nbsp; Лет:<b><input type="text" name="age" value="" size="2" onfocus="set_shadow('save_columns_tkt');"></b> &nbsp; Пол:<b><select name="sex">
+	<option value="?"> ? </option>
+	<option value="Ж"> Ж </option>
+	<option value="М"> М </option>
+	</select></b> </td></tr>
+	<tr valign="top"><td align="right"> Кто:</td><td> <b><select name="kto">
+	<option value="">  </option>
+	<option value="1"> пациент </option>
+	<option value="2"> родств. совместно </option>
+	<option value="3"> родств. отдельно </option>
+	<option value="4"> очевидец </option>
+	<option value="5"> админ-соцработник </option>
+	<option value="6"> милиция </option>
+	<option value="7"> МЧС, пожарные  </option>
+	<option value="8"> работник предприятия </option>
+	<option value="9"> участковый врач </option>
+	<option value="a"> ср. медработник ЛПУ </option>
+	<option value="b"> врач приемного отд. </option>
+	<option value="c"> врач стационара </option>
+	<option value="d"> коммерч. МУ </option>
+	<option value="e"> работник ССМП </option>
+	<option value="f"> не представился </option>
+	</select></b> </td>
+	<td width="340px"><b> 	</b></td>
+	<td></td></tr>
+	</tbody></table></div>	<!-- pacient	-->
+
+
+	<!--	[Правка]	[Дубль]	[Вызвать бригаду на себя]	[Повторное обслуживание]	-->
+	<div class="head_call" style="background-color: #48a; color: #eef; padding: 2px;"><table><tbody><tr><td width="18%">
+	<!--div class='call_form head_call' style='background-color: #686; color: #eef; padding: 2px;' ><table ><tr><td width=50%-->
+	<input type="button" class="butt" value="Сохранить" onclick="new_call_save();"></td><td width="14%"><input type="button" class="butt" value="Отказать" onclick="calls_alert('refuse', 10, 1);"> </td><td width="14%"> &nbsp;! </td><td width="14%"> &nbsp;! </td><td width="14%"> &nbsp;! </td><td width="14%"> &nbsp;! </td><td width="14%"><input class="butt" type="button" value="Повторный">
+	</td></tr></tbody></table></div>
+
+
+	</td><td>
+	<div id="cwork" class="call" style="width: 240px;"><table width="100%">
+	<!--tr><td align='right'> &nbsp;Сект.:</td><td><input type='text' name='sector' value='' size='2' maxlength='3'  /><span id='rem_sect' class='butt'>rem_sect</span> </td></tr-->
+	<!--tr><td align='right'> Номер:</td><td>         </td></tr-->
+	<tbody><tr><td width="50px" align="right"> Номер:</td><td>  <b><b></b></b> <b></b>      </td></tr>
+	<tr><td width="50px" align="right"> Проф.:</td><td>	<b></b>	 </td></tr>
+	<tr><td width="50px" align="right"> П/С:</td><td>	<b><select name="subst">
+	<option value="">  </option>
+	<option value="1"> Автозаводская </option>
+	<option value="2"> Канавинская </option>
+	</select></b>	</td></tr>
+	<tr><td width="50px" align="right"> Принят:</td><td>	<b></b> <b></b>	</td></tr>
+	</tbody></table></div>	<!-- cwork	-->
+
+	<div id="brig_ref" class="call" style="width: 240px;"><table width="100%">
+	<tbody><tr><td width="50px" align="right"> Бриг.:</td>
+	<td> &nbsp; </td></tr>
+	</tbody></table></div>	<!-- brig_ref	-->
+
+	</td></tr></tbody></table>
+
+
+
+	<div id="RESULT">
+RESULT:
+	</div>
+	</div>	<!-- body_call	-->
+{% endif %}
+
+    </div>	<!-- call_body	-->
 </div>
+</form>
